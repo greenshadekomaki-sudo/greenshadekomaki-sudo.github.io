@@ -1,0 +1,75 @@
+/* 主题颜色、内容宽度集中维护；不依赖外部字体或样式库。 */
+:root { color-scheme: light; --green: #365d32; --soft-green: #e3edda; --ink: #273229; --muted: #657064; --line: #dbe2d7; --coming-background: #f3f5f2; }
+* { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body { margin: 0; background: #fff; color: var(--ink); font: 16px/1.7 system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; }
+a { color: var(--green); text-underline-offset: 4px; }
+button, select { font: inherit; }
+a:focus-visible, select:focus-visible { outline: 3px solid #689352; outline-offset: 5px; }
+.page { width: min(1120px, calc(100% - 80px)); margin-inline: auto; }
+.header { min-height: 134px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--line); }
+.studio-logo { width: 290px; height: 82px; }
+.home-link { padding: 9px 30px; border-radius: 30px; background: var(--soft-green); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.featured { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 64px; align-items: center; padding: 64px 24px; border-bottom: 1px solid var(--line); }
+.featured-icon { aspect-ratio: 1; width: 100%; }
+.featured-copy { min-width: 0; }
+h1 { margin: 0; font-size: clamp(1.8rem, 3.2vw, 2.8rem); line-height: 1.35; letter-spacing: -.03em; }
+h1 .media { height: 112px; }
+.featured-description { margin: 25px 0 30px; color: var(--muted); }
+.play-link { display: block; width: min(260px, 100%); text-decoration: none; }
+#play-image { display: block; height: 72px; }
+.games-section { padding: 34px 0 58px; }
+h2 { margin: 0 0 26px; font-size: 1.65rem; font-weight: 650; }
+.game-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.game-card { display: flex; gap: 24px; align-items: center; min-width: 0; padding: 28px; border: 1px solid #ccd7c6; border-radius: 22px; background: #fcfdfb; }
+.card-icon { width: 142px; flex: 0 0 142px; aspect-ratio: 1; }
+.card-copy { min-width: 0; }
+.game-card h3 { margin: 0 0 12px; font-size: 1.35rem; line-height: 1.45; }
+.game-card p { margin: 14px 0; color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { background: var(--soft-green); color: var(--green); border-radius: 20px; padding: 2px 12px; font-size: .875rem; }
+.card-link { font-size: .875rem; }
+[aria-disabled="true"] { cursor: default; color: var(--muted); text-decoration: none; }
+.media { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.media img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.coming-symbol { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border: 1px dashed #b6c0b2; border-radius: 16px; background: var(--coming-background); color: var(--muted); font-size: 4rem; line-height: 1; }
+[hidden] { display: none !important; }
+.footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 30px 0 36px; border-top: 1px solid var(--line); font-size: .875rem; color: var(--muted); }
+.contact { display: flex; align-items: center; gap: 10px; min-width: 0; }
+svg { width: 24px; height: 24px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.copyright { margin: 0; }
+.language-control { position: relative; display: flex; align-items: center; gap: 9px; padding: 7px 14px; border: 1px solid #8da97e; border-radius: 24px; margin-left: auto; color: var(--green); flex-shrink: 0; }
+.language-control::after { content: ""; width: 7px; height: 7px; border-right: 1.5px solid; border-bottom: 1.5px solid; transform: rotate(45deg); position: absolute; right: 17px; top: 17px; pointer-events: none; }
+select { appearance: none; padding: 0 22px 0 0; color: inherit; background: transparent; border: 0; cursor: pointer; max-width: 100%; }
+p, h1, h3, .contact { overflow-wrap: anywhere; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* 平板缩小间距，保留双列游戏卡片。 */
+@media (max-width: 1000px) {
+  .page { width: calc(100% - 48px); }
+  .featured { grid-template-columns: 280px minmax(0, 1fr); gap: 36px; padding-inline: 0; }
+  .game-card { gap: 18px; padding: 22px; }
+  .card-icon { width: 104px; flex-basis: 104px; }
+  .footer { flex-wrap: wrap; }
+}
+/* 手机单列；语言选项始终靠右，不使用固定定位。 */
+@media (max-width: 640px) {
+  .page { width: calc(100% - 36px); }
+  .header { min-height: 105px; gap: 16px; }
+  .studio-logo { width: min(220px, 65%); height: 64px; }
+  .home-link { padding: 7px 18px; }
+  .featured { grid-template-columns: minmax(0, 1fr); gap: 30px; padding-block: 36px; }
+  .featured-icon { max-width: 280px; justify-self: center; }
+  .featured-copy { width: 100%; }
+  .featured-description { margin-block: 18px 24px; }
+  .game-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .games-section { padding-block: 28px 36px; }
+  .game-card { padding: 22px 18px; }
+  .card-icon { width: 100px; flex-basis: 100px; }
+  .footer { gap: 20px; padding-block: 24px; }
+  .copyright { flex-basis: 100%; }
+}
+@media (max-width: 360px) {
+  .game-card { flex-direction: column; align-items: flex-start; }
+  .card-icon { flex-basis: auto; }
+}
+
