@@ -1,7 +1,7 @@
 "use strict";
 // 公共翻译集中维护；游戏专属翻译见 games.js。
 window.I18N = {
-  "zh-CN": {
+  "zh-Hans": {
     pageTitle: "GreenShade studio — 独立游戏工作室",
     description: "GreenShade studio 独立游戏开发者官方网站。",
     home: "首页",
@@ -13,6 +13,21 @@ window.I18N = {
     comingTitle: "更多游戏 / Coming Soon",
     comingDescription: "今后将在这里追加更多游戏。",
     comingTag: "敬请期待",
+    rightsReserved: "All rights reserved.",
+  },
+  "zh-Hant": {
+    pageTitle: "GreenShade studio — 獨立遊戲工作室",
+    description: "GreenShade studio 獨立遊戲開發者官方網站。",
+    home: "首頁",
+    gameList: "遊戲列表",
+    language: "選擇語言",
+    playLabel: "在 Google Play 查看遊戲",
+    contactLabel: "聯絡：",
+    details: "遊戲詳情 / 商店",
+    comingTitle: "更多遊戲 / Coming Soon",
+    comingDescription: "今後將在這裡新增更多遊戲。",
+    comingTag: "敬請期待",
+    rightsReserved: "保留所有權利。",
   },
   ja: {
     pageTitle: "GreenShade studio — インディーゲームスタジオ",
@@ -26,6 +41,7 @@ window.I18N = {
     comingTitle: "その他のゲーム / Coming Soon",
     comingDescription: "今後、こちらにゲームを追加します。",
     comingTag: "お楽しみに",
+    rightsReserved: "All rights reserved.",
   },
   en: {
     pageTitle: "GreenShade studio — Independent Games",
@@ -40,6 +56,7 @@ window.I18N = {
     comingTitle: "More games / Coming Soon",
     comingDescription: "More games will be added here in the future.",
     comingTag: "Coming soon",
+    rightsReserved: "All rights reserved.",
   },
 };
 

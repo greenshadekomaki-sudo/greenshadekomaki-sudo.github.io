@@ -8,10 +8,21 @@
     // 隐私模式或存储被禁用时，仍可正常访问和切换语言。
     try {
       const saved = localStorage.getItem(config.languageStorageKey);
+      // 兼容旧版保存的语言代码；页面统一使用不含地区的文字体系代码。
+      const legacyLanguage = { "zh-CN": "zh-Hans", "zh-TW": "zh-Hant" }[saved];
+      if (legacyLanguage) {
+        try { localStorage.setItem(config.languageStorageKey, legacyLanguage); } catch (_) { /* 无法保存时仍使用迁移后的语言。 */ }
+        return legacyLanguage;
+      }
       if (supported.includes(saved)) return saved;
     } catch (_) { /* 无法持久化时采用浏览器语言。 */ }
     const browserLanguage = (navigator.language || "en").toLowerCase();
-    if (browserLanguage.startsWith("zh")) return "zh-CN";
+    if (browserLanguage.startsWith("zh")) {
+      const subtags = browserLanguage.split("-");
+      if (subtags.includes("hant")) return "zh-Hant";
+      if (subtags.includes("hans")) return "zh-Hans";
+      return subtags.some((part) => ["tw", "hk", "mo"].includes(part)) ? "zh-Hant" : "zh-Hans";
+    }
     if (browserLanguage.startsWith("ja")) return "ja";
     return "en";
   }
