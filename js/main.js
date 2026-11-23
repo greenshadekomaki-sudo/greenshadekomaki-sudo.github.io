@@ -1,19 +1,16 @@
 "use strict";
 (() => {
   const config = window.SITE_CONFIG;
-  const supported = Object.keys(window.I18N);
+  const supported = Object.keys(window.I18N).filter((language) =>
+    window.GAMES.every((game) => Object.hasOwn(game.translations, language))
+  );
   const byId = (id) => document.getElementById(id);
+  const fallbackLanguage = supported.includes("en") ? "en" : supported[0];
 
   function initialLanguage() {
     // 隐私模式或存储被禁用时，仍可正常访问和切换语言。
     try {
       const saved = localStorage.getItem(config.languageStorageKey);
-      // 兼容旧版保存的语言代码；页面统一使用不含地区的文字体系代码。
-      const legacyLanguage = { "zh-CN": "zh-Hans", "zh-TW": "zh-Hant" }[saved];
-      if (legacyLanguage) {
-        try { localStorage.setItem(config.languageStorageKey, legacyLanguage); } catch (_) { /* 无法保存时仍使用迁移后的语言。 */ }
-        return legacyLanguage;
-      }
       if (supported.includes(saved)) return saved;
     } catch (_) { /* 无法持久化时采用浏览器语言。 */ }
     const browserLanguage = (navigator.language || "en").toLowerCase();
@@ -66,6 +63,11 @@
   }
 
   function render(language) {
+    // 忽略过期选项或无效存储值，避免读取不存在的翻译。
+    if (!supported.includes(language)) {
+      const current = document.documentElement.lang;
+      language = supported.includes(current) ? current : fallbackLanguage;
+    }
     const t = window.I18N[language];
     document.documentElement.lang = language;
     document.title = t.pageTitle;
@@ -134,6 +136,7 @@
     }
     contact.closest(".contact").hidden = !email;
     byId("year").textContent = new Date().getFullYear();
+    return language;
   }
 
   // Favicon 没有页面内展示区域；失败时保留空图标，不额外添加草图外的区域。
@@ -144,8 +147,7 @@
     icon.src = config.favicon;
   }
   byId("language").addEventListener("change", (event) => {
-    const language = event.target.value;
-    render(language);
+    const language = render(event.target.value);
     try { localStorage.setItem(config.languageStorageKey, language); } catch (_) { /* 切换仍然生效。 */ }
   });
   render(initialLanguage());
